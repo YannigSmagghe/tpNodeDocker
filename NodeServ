@@ -12,5 +12,4 @@ WORKDIR /data
 
 USER node
 
-RUN yo keystone
-
+CMD yo keystone auto && cd keystone-starter && npm start

@@ -14,14 +14,14 @@ echo "Mot de passe root:  '${rootPasswd}'" > ./passwdMongoDB.log
 
 
 
-${cmdProxy} docker build -f MongoServ -t mongo .
+${cmdProxy} docker build -f MongoServ -t my_mongo .
 
-${cmdProxy} docker run -v "$(pwd)/mongo":/mongo --name mongo -d mongo mongod --smallfiles
+${cmdProxy} docker run -v "$(pwd)/mongo":/mongo --name tp_mongo -d my_mongo mongod --smallfiles
 
 
 
 #NODE 
-${cmdProxy} docker build -f NodeServ -t node .
+${cmdProxy} docker build -f NodeServ -t my_node .
 
-${cmdProxy} docker run -it --name node -v "$(pwd)/data":/data --link mongo:mongo -d -p 8082:3000 node bash
+${cmdProxy} docker run -it --name node -v "$(pwd)/data":/data -e "MONGO_URI=mongodb://tp_mongo/keystone" --link tp_mongo -d -p 8082:3000 my_node
 
