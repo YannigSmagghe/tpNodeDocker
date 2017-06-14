@@ -12,5 +12,5 @@ WORKDIR /data
 
 USER node
 
-RUN yo keystone auto
+RUN yo keystone
 
